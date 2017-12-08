@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MakeJars:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/MakeJars_jar</output-path>
+    <root id="archive" name="MakeJars.jar">
+      <element id="module-output" name="MakeJars" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/commons-io-2.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

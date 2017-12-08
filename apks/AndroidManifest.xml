@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest android:versionCode="1010" android:versionName="1.0.1" android:installLocation="preferExternal" package="com.killerbeanstudios.enemystrike2" platformBuildVersionCode="21" platformBuildVersionName="5.0.1-1624448"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <supports-screens android:anyDensity="true" android:smallScreens="false" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" />
+    <application android:label="@string/app_name" android:icon="@drawable/app_icon" android:name="com.soomla.SoomlaApp" android:debuggable="false">
+        <activity android:label="@string/app_name" android:name="com.neatplug.u3d.plugins.common.NPUnityPlayerActivity" android:launchMode="singleTask" android:screenOrientation="sensor" android:configChanges="locale|fontScale|keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+        </activity>
+        <uses-library android:name="com.google.android.maps" />
+        <activity android:label="@string/app_name" android:name="com.unity3d.player.VideoPlayer" android:configChanges="locale|fontScale|keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" />
+        <activity android:name="com.tapjoy.TJCOffersWebView" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.tapjoy.TapjoyFullScreenAdWebView" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.tapjoy.TapjoyDailyRewardAdWebView" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.tapjoy.TapjoyVideoView" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:name="com.tapjoy.TJAdUnitView" android:configChanges="keyboardHidden|orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:name="com.tapjoy.mraid.view.ActionHandler" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.tapjoy.mraid.view.Browser" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:theme="@android:style/Theme.Translucent" android:name="com.chartboost.sdk.CBDialogActivity" android:launchMode="singleTop" android:configChanges="keyboard|keyboardHidden|orientation" android:windowSoftInputMode="adjustResize" />
+        <activity android:theme="@android:style/Theme.Translucent.NoTitleBar" android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true" />
+        <meta-data android:name="com.prime31.ChartboostPlugin" android:value="UnityPlayerActivityProxy" />
+        <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <activity android:name="com.supersonicads.sdk.controller.ControllerActivity" android:configChanges="orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.Translucent" android:name="com.supersonicads.sdk.controller.InterstitialActivity" android:configChanges="orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.Translucent" android:name="com.supersonicads.sdk.controller.OpenUrlActivity" android:configChanges="orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:name="com.unity3d.ads.android.view.UnityAdsFullscreenActivity" android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:name="com.jirbo.adcolony.AdColonyOverlay" android:configChanges="keyboardHidden|orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:name="com.jirbo.adcolony.AdColonyFullscreen" android:configChanges="keyboardHidden|orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:name="com.jirbo.adcolony.AdColonyBrowser" android:configChanges="keyboardHidden|orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+        <activity android:name="com.supersonic.adapters.hyprmx.MediationHMXActivity" android:configChanges="locale|fontScale|keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" />
+        <activity android:theme="@android:style/Theme.NoTitleBar" android:label="HyprMX SDK" android:name="com.hyprmx.android.sdk.activity.HyprMXOfferViewerActivity" android:launchMode="singleTop" android:configChanges="locale|fontScale|keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" />
+        <service android:name="com.hyprmx.android.sdk.service.ApplicationInstallService" android:enabled="true" android:exported="false" android:stopWithTask="false" />
+        <activity android:theme="@android:style/Theme.Translucent.NoTitleBar" android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true" android:configChanges="keyboardHidden|orientation|screenSize" android:hardwareAccelerated="true" />
+        <activity android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:name="com.soomla.store.billing.google.GooglePlayIabService$IabActivity" />
+        <meta-data android:name="billing.service" android:value="google.GooglePlayIabService" />
+    </application>
+    <uses-feature android:glEsVersion="0x10001" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
+</manifest>
