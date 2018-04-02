@@ -38,7 +38,8 @@ public class Main {
 			System.out.println("no apkDir specified!");
             System.exit(0);
         }
-        SplitApk sp = new SplitApk(apkDir, keyFile, keyName, keyPasswd);
+//        SplitApk sp = new SplitApk(apkDir, keyFile, keyName, keyPasswd);
+        RecoverSplitApk sp = new RecoverSplitApk(apkDir, keyFile, keyName, keyPasswd);
         sp.mySplit();
     }
 }

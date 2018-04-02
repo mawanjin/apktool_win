@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
-
+/**
+ * 去图标
+ */
 public class SplitApk {
 	String curPath;
 	String apkDir;
