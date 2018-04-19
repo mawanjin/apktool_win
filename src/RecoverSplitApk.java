@@ -1,11 +1,7 @@
 import org.apache.commons.io.FileUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -72,7 +68,7 @@ public class RecoverSplitApk {
 		System.out.println("this.dir :: " + this.dir);
 		System.out.println("this.outPath :: " + this.outPath);
 		// 解包
-		String cmdUnpack = "cmd.exe /C java -jar apktool.jar d -s " +this.dir+apkName;
+		String cmdUnpack = "cmd.exe /c  java -jar apktool.jar d  " +this.dir+apkName;
 		System.out.println("run proc :: " + cmdUnpack);
 		runCmd(cmdUnpack);
 		System.out.println("run proc complete,ready to backup AndroidManifest.xml");
@@ -94,22 +90,27 @@ public class RecoverSplitApk {
 
 		System.out.println("generate package: " + this.dir + ":");
 
-		BufferedReader br = new BufferedReader(new FileReader(manifest_bak));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(manifest_bak),"utf-8"));
 		List<String> lines = new ArrayList<String>(0);
 
 		String line = null;
 		StringBuffer sb = new StringBuffer();
 		while ((line = br.readLine()) != null) {
+//			lines.add(new String(line.getBytes(),Charset.forName("unicode")));
 			lines.add(line);
 		}
 		br.close();
 		String preLine = "";
 		for (int i = 0; i < lines.size(); i++) {
 			String str = (String) lines.get(i);
+
 			if (str.toLowerCase().contains("android.intent.action.main")) {
-				if(lines.get(i+1).toLowerCase().contains("android.intent.category.default"))
-				System.out.println("start recover.....launcher");
-				lines.set(i+1, lines.get(i+1).toLowerCase().replace("android.intent.category.default", "android.intent.category.launcher"));
+				if(lines.get(i+1).toLowerCase().contains("android.intent.category.default")){
+					System.out.println("start recover.....launcher::"+lines.get(i+1));
+					lines.set(i+1, lines.get(i+1).toLowerCase().replace("android.intent.category.default", "android.intent.category.LAUNCHER"));
+					System.out.println("after recover.....launcher::"+lines.get(i+1));
+				}
+
 				int startIndex = i;
 				do {
 					startIndex--;
@@ -119,30 +120,42 @@ public class RecoverSplitApk {
 					preLine = (String) lines.get(startIndex);
 				} while (!preLine.contains("<activity"));
 
-//				System.out.println("start replace.....launchMode");
 
-//				preLine = preLine
-//						.replace("android:launchMode=\"standard\"", "")
-//						.replace("android:launchMode=\"singleTop\"", "")
-//						.replace("android:launchMode=\"singleTask\"", "")
-//						.replace("android:launchMode=\"singleInstance\"", "");
-//
-//				lines.set(startIndex, preLine.replace("<activity",
-//						"<activity android:launchMode=\"singleTask\""));
 			}
 		}
-		for (String s1 : lines) {
-			sb.append(s1 + "\n");
+		if(new File(f_mani).exists()){
+			new File(f_mani).delete();
 		}
-		FileWriter fw = new FileWriter(f_mani);
-		fw.write(sb.toString());
-		fw.flush();
-		fw.close();
+
+		PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f_mani),"UTF-8")));
+
+
+//		FileWriter fw = new FileWriter(f_mani);
+		for (String s1 : lines) {
+//			System.out.println(new String(s1.getBytes(), Charset.forName("utf-8")));
+//			System.out.println(s1);
+//			fw.write(new String(s1.getBytes(), Charset.forName("utf8")) + "\n");
+//			fw.write(s1 + "\n");
+			out.write(s1+ "\n");
+
+		}
+		out.flush();
+		out.close();
+//		fw.flush();
+//		fw.close();
+//		fw = null;
+
+		System.out.println("complete recover androidmanifest.xml .");
+		runCmd("cmd.exe /c echo abc");
+
 
 		// 打包
 		String unsignApk = this.dir + apk.getName().replace(".apk", "_Unsigned.apk");
+
 		// String cmdPack = String.format("cmd.exe /C java -jar apktool.jar b %s %s", dir, unsignApk);
-		String cmdPack = String.format("cmd.exe /C java -jar apktool.jar b -o %s %s", unsignApk, apk.getName().replace(".apk", ""));
+//		String buildStr = new String(("cmd.exe /c java -jar apktool.jar b -o "+unsignApk+" "+ apk.getName().replace(".apk", "")).getBytes(),Charset.forName("utf-8"));
+		String buildStr = "cmd.exe /c java -jar apktool.jar b -o "+unsignApk+" "+ apk.getName().replace(".apk", "");
+		String cmdPack = String.format(buildStr);
 		System.out.println("start package.run[" + cmdPack + "] ");
 		runCmd(cmdPack);
 
@@ -197,14 +210,17 @@ public class RecoverSplitApk {
 	
 	public void runCmd(String cmd) {
 		try {
+			System.out.println("method runCmd() called." + cmd);
 			Process p = Runtime.getRuntime().exec(cmd);
-			// p.waitFor();
+//			p.waitFor();
 			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String msg = null;
 			while ((msg = br.readLine()) != null) {
 				System.out.println(msg);
 			}
 		} catch (Exception e) {
+			System.out.println("runcmd error.....");
+			System.out.println(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
